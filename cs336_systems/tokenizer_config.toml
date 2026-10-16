@@ -1,0 +1,4 @@
+description="The config of tokenizer"
+
+[base_config]
+vocab_size=10000
