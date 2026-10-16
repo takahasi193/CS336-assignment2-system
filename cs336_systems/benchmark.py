@@ -65,8 +65,9 @@ def parse_args():
 args=parse_args()
 
 def get_model():
-    model_loading_path="config.toml"
-    tokenizer_loading_path="tokenizer_config.toml"
+    current_dir=os.path.dirname(os.path.abspath(__file__))
+    model_loading_path=os.path.join(current_dir,"config.toml")
+    tokenizer_loading_path=os.path.join(current_dir, "tokenizer_config.toml")           
     with open(model_loading_path,"rb") as f:
         configs=tomllib.load(f)
     with open(tokenizer_loading_path,"rb") as f:
@@ -125,8 +126,8 @@ def optimizer_run_step(model:nn.Module,test_data:torch.Tensor,optimizer:torch.op
 def save_metadata(save_dir,metadata:dict):
     os.makedirs(save_dir,exist_ok=True)
     save_path=os.path.join(save_dir,"benchmark.json")
-    with open(save_path,"w") as f:
-        f.write(json.dumps(metadata))
+    with open(save_path,"a") as f:
+        f.write(json.dumps(metadata)+"\n")
 
 
 def benchMarking():
